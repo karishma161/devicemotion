@@ -1,0 +1,94 @@
+<DOCTYPE html>
+<head>
+
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style type="text/css">
+
+</style>
+
+<body>
+	<canvas id="c" width="500" height="495"></canvas>
+
+
+	<script type="text/javascript">
+
+			var c = document.getElementById('c');
+			var ctx = c.getContext('2d');
+			
+
+				var x= 0;
+				var y= 0;
+				var z= 0;
+				var fps = 30;
+				
+				draw(x,y,z);
+
+				window.addEventListener("devicemotion", handleMotionEvent, true);
+
+				function handleMotionEvent(event){
+					 x= 10*event.accelerationIncludingGravity.x;
+					 y= 10*event.accelerationIncludingGravity.y;
+					 z= 10*event.accelerationIncludingGravity.z;
+					 ctx.clearRect(0,0,window.width,window.height);
+					draw(x,y,z);
+
+				}
+
+				function draw(x,y,z)
+				{
+					ctx.clearRect(0,0,500,495);
+						ctx.translate(0.5, 0.5);
+						ctx.lineWidth = 10;
+
+						ctx.strokeStyle = 'black';
+
+						ctx.beginPath();
+						for (var i = 18; i < 300; i += 18) {
+						    addLineSubPath(ctx, i);
+						}
+						ctx.stroke();
+
+						function addLineSubPath(ctx, i) {
+						   ctx.moveTo(0, i);
+						   ctx.lineTo(300, i);
+						}
+						
+
+			      ctx.lineWidth = 1;
+			      ctx.beginPath();+
+						ctx.moveTo(150, 18);
+						ctx.quadraticCurveTo(0+x+y+z, 150+x+y+z, 150, 300);
+			      ctx.fillStyle = 'white';
+			      ctx.fill();
+			     
+						ctx.stroke();
+
+
+						ctx.beginPath();
+						ctx.moveTo(150, 18);
+						ctx.quadraticCurveTo(300-x-y-z, 150-x-y-z, 150, 300);
+			      ctx.fillStyle = 'white';
+			      ctx.fill();
+						ctx.stroke();
+					ctx.translate(0.5, 0.5);
+					ctx.lineWidth = 10;
+
+					ctx.strokeStyle = 'black';
+
+					ctx.beginPath();
+					for (var y = 15; y < 300; y += 18) {
+					    addLineSubPath(ctx, y);
+					}
+					ctx.stroke();
+
+					function addLineSubPath(ctx, y) {
+					   ctx.moveTo(0, y);
+					   ctx.lineTo(300, y);
+					}
+				}
+
+		
+	</script>
+
+</body>
